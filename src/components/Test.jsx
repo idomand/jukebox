@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useMedia } from "react-use";
-import { Howl, Howler } from "howler";
+import { Howl /* , Howler */ } from "howler";
 import mySound from "../audioClips/120_stutter_breakbeats_16.mp3";
 const TestWrapper = styled.div`
   background-color: lightblue;
