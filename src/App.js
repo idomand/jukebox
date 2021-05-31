@@ -1,12 +1,7 @@
-import "./App.css";
-import Test from "./components/Test";
+import JukeboxWrapper from "./components/JukeboxWrapper";
 
 function App() {
-  return (
-    <div className="App">
-      <Test />
-    </div>
-  );
+  return <JukeboxWrapper />;
 }
 
 export default App;
