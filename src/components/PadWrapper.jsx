@@ -8,7 +8,9 @@ import { Howl /* , Howler */ } from "howler";
 const Wrapper = styled.section`
   background-color: lightgrey;
   display: grid;
-  grid-template-columns: repeat(3, minmax(100px, 1fr));
+  grid-template-columns: repeat(3, minmax(75px, 1fr));
+  grid-gap: 3px;
+  padding: 5px;
 `;
 
 const ButtonDiv = styled.div`
@@ -47,22 +49,11 @@ export default function PadWrapper() {
   });
 
   const stopMusic = () => {
-    console.log("trying to stop the music");
     sound.stop();
-    sound.pause();
   };
 
-  sound.on("end", function () {
-    console.log("Finished!");
-    setIsPlaying(false);
-  });
   const playMusic = () => {
-    if (isPlaying) {
-      return;
-    } else {
-      sound.play();
-      setIsPlaying(true);
-    }
+    sound.play();
   };
 
   return (

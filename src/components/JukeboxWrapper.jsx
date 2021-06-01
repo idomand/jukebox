@@ -39,7 +39,8 @@ const JukeboxHead = styled.div`
   margin-top: 20px;
   border-top-left-radius: 250px;
   border-top-right-radius: 250px;
-  background-color: lightgreen;
+  /* background-color: lightgreen; */
+  background-image: linear-gradient(darkgreen, lightblue); ;
 `;
 
 const JukeboxHeadTop = styled.div`
@@ -48,11 +49,12 @@ const JukeboxHeadTop = styled.div`
   background-color: gold;
   border-top-left-radius: 150px;
   border-top-right-radius: 150px;
-  border: 10px solid #188527;
+  border: 3px solid black;
   border-bottom: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-image: linear-gradient(red, yellow); ;
 `;
 
 const JukeboxBody = styled.div`
@@ -66,8 +68,9 @@ const JukeboxBody = styled.div`
 `;
 
 const Columns = styled.div`
-  border: solid yellow;
-  background-color: lightgreen;
+  /* border: solid yellow; */
+  /* background-color: lightgreen; */
+  background-image: linear-gradient(#00ff87, #60efff); ;
 `;
 const ButtonWrapper = styled.div`
   background-color: lightskyblue;
