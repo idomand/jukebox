@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { arrayOfSounds } from "../audioClips";
-import { Howl } from "howler";
 
 const Pad = styled.button`
   border: solid 1px;
   cursor: pointer;
   outline: none;
+  transition: fill 0.25s;
   background-color: ${(props) => (props.isPicked ? "yellow" : "white")};
+  background-color: ${(props) =>
+    props.cardPlayingNow && props.isPicked ? "red" : "null"};
   &:hover {
     background-color: lightblue;
   }
@@ -21,36 +23,93 @@ const Wrapper = styled.section`
 `;
 
 const ButtonDiv = styled.div`
-  border: solid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15px;
 `;
+export const Button = styled.button`
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  font-size: 20px;
+  color: white;
+  padding: 15px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover,
+  &:focus,
+  &:active {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+`;
+
+const PlayAllButton = styled(Button)`
+  background-color: green;
+`;
+
+const StopButton = styled(Button)`
+  background-color: red;
+`;
+
 export default function PadWrapper() {
-  const [audioNamePicked, setAudioNamePicked] = useState(undefined);
   const [playlistArray, setPlaylistArray] = useState([]);
-  const [trackNumber, setTrackNumber] = useState(0);
+  const [cardPlayingNow, setCardPlayingNow] = useState("");
+  // const [isMusicPlaying, setIsMusicPlaying] = useState(false);
 
-  console.log(`arrayOfSounds`, arrayOfSounds);
+  useEffect(() => {
+    console.log("this is useEffect");
+  }, []);
 
-  console.log(`playlistArray`, playlistArray);
+  let counter = 0;
+  console.log(`cardPlayingNow`, cardPlayingNow);
 
   const playMusicFromPlaylist = () => {
-    if (playlistArray.length !== 0) {
-      playlistArray.forEach((element) => {});
+    if (counter < playlistArray.length) {
+      console.log(`counter`, counter);
+      console.log(`playlistArray.length`, playlistArray.length);
+      console.log(`playlistArray[counter]`, playlistArray[counter]);
+      setCardPlayingNow(playlistArray[counter].name);
+      playlistArray[counter].sound.play();
+      playlistArray[counter].sound.on("end", () => {
+        counter++;
+        stopMusic();
+        playMusicFromPlaylist();
+      });
+    } else {
+      console.log("this is the restart of the loop");
+      counter = 0;
+      console.log(`counter`, counter);
+      console.log(`playlistArray.length`, playlistArray.length);
+      console.log(`playlistArray[counter]`, playlistArray[counter]);
+      stopMusic();
+      playMusicFromPlaylist();
     }
   };
 
   const handlePadClick = (clip) => {
-    console.log(`clip`, clip);
-    if (playlistArray.includes(clip.name)) {
-      console.log("needToRemove");
+    if (playlistArray.some((element) => element.name === clip.name)) {
       setPlaylistArray(
-        playlistArray.filter((element) => element !== clip.name)
+        playlistArray.filter((element) => element.name !== clip.name)
       );
     } else {
-      console.log("needToAdd");
       setPlaylistArray((playlistArray) => {
-        return [...playlistArray, clip.name];
+        return [...playlistArray, clip];
       });
     }
+    /*     if (playlistArray.length !== 0) {
+      playMusicFromPlaylist();
+    }
+ */
   };
 
   const renderPads = () => {
@@ -62,8 +121,8 @@ export default function PadWrapper() {
             handlePadClick(element);
           }}
           name={element.name}
-          cardPicked={audioNamePicked}
-          isPicked={playlistArray.includes(element.name)}
+          cardPlayingNow={cardPlayingNow === element.name}
+          isPicked={playlistArray.some((pad) => pad.name === element.name)}
         >
           <p>{element.name}</p>
         </Pad>
@@ -72,12 +131,25 @@ export default function PadWrapper() {
     return arrayOfPads;
   };
 
+  const stopMusic = () => {
+    arrayOfSounds.forEach((element) => {
+      element.sound.stop();
+    });
+    setPlaylistArray([]);
+  };
+  const playAll = () => {
+    console.log("play all");
+    playMusicFromPlaylist();
+  };
   return (
     <>
       <Wrapper>{renderPads()}</Wrapper>
       <ButtonDiv>
         <div>
-          <button onClick={playMusicFromPlaylist}>play playlist</button>
+          <PlayAllButton onClick={playAll}>Play All</PlayAllButton>
+        </div>
+        <div>
+          <StopButton onClick={stopMusic}>Stop</StopButton>
         </div>
       </ButtonDiv>
     </>

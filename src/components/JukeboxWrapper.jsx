@@ -64,17 +64,16 @@ const JukeboxBody = styled.div`
   height: 500px;
   width: 400px;
   display: grid;
-  grid-template-columns: 40px 1fr 40px;
+  grid-template-columns: 47px 1fr 47px;
 `;
 
 const Columns = styled.div`
-  /* border: solid yellow; */
-  /* background-color: lightgreen; */
   background-image: linear-gradient(#00ff87, #60efff); ;
 `;
 const ButtonWrapper = styled.div`
   background-color: lightskyblue;
-  border: solid;
+  border-right: solid;
+  border-left: solid;
   display: flex;
   flex-direction: column;
   align-items: center;
