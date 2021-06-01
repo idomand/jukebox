@@ -1,7 +1,10 @@
 import JukeboxWrapper from "./components/JukeboxWrapper";
-
 function App() {
-  return <JukeboxWrapper />;
+  return (
+    <div>
+      <JukeboxWrapper />
+    </div>
+  );
 }
 
 export default App;

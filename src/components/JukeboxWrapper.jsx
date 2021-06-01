@@ -1,90 +1,98 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 // import { useMedia } from "react-use";
-import { arrayOfAudioClips } from "../audioClips";
-import { Howl /* , Howler */ } from "howler";
-
-const Wrapper = styled.section`
-  background-color: lightgrey;
-  border: solid blue;
-  height: 50vh;
-`;
-
-const Card = styled.button`
-  width: 150px;
-  border: solid;
-  border-radius: 15px;
-  background-color: ${(props) =>
-    props.name === props.cardPicked ? "lightblue" : "#5ebffc"};
-  margin: 20px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: lightskyblue;
+import PadWrapper from "./PadWrapper";
+const ScreenWrapper = styled.section`
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-columns: 1fr 60% 1fr;
+  @media (max-width: 650px) {
+    grid-template-columns: 1fr;
   }
 `;
 
+const Wrapper = styled.div`
+  background-color: lightgrey;
+  border: solid blue;
+  grid-column: 2/3;
+  @media (max-width: 650px) {
+    grid-column: 1/2;
+  }
+`;
+
+const Inner = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: inherit;
+  flex-direction: column;
+`;
+const JukeboxHead = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  border: solid red;
+  height: 200px;
+  width: 400px;
+  margin-top: 20px;
+  border-top-left-radius: 250px;
+  border-top-right-radius: 250px;
+  background-color: lightgreen;
+`;
+
+const JukeboxHeadTop = styled.div`
+  width: 300px;
+  height: 150px;
+  background-color: gold;
+  border-top-left-radius: 150px;
+  border-top-right-radius: 150px;
+  border: 10px solid #188527;
+  border-bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const JukeboxBody = styled.div`
+  align-self: center;
+  justify-self: center;
+  border: solid blue;
+  height: 500px;
+  width: 400px;
+  display: grid;
+  grid-template-columns: 40px 1fr 40px;
+`;
+
+const Columns = styled.div`
+  border: solid yellow;
+  background-color: lightgreen;
+`;
+const ButtonWrapper = styled.div`
+  background-color: lightskyblue;
+  border: solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 export default function JukeboxWrapper() {
-  const [audioPicked, setAudioPicked] = useState(undefined);
-  const [audioNamePicked, setAudioNamePicked] = useState(undefined);
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  const changeClip = (clip) => {
-    setAudioPicked(clip.src);
-    setAudioNamePicked(clip.name);
-  };
-
-  const renderCard = () => {
-    const arrayOfCards = arrayOfAudioClips.map((element) => {
-      return (
-        <Card
-          onClick={() => {
-            changeClip(element);
-          }}
-          name={element.name}
-          cardPicked={audioNamePicked}
-        >
-          <p>{element.name}</p>
-        </Card>
-      );
-    });
-    return arrayOfCards;
-  };
-  const sound = new Howl({
-    src: [audioPicked],
-  });
-
-  sound.on("end", function () {
-    console.log("Finished!");
-  });
-
-  const playMusic = () => {
-    if (isPlaying) {
-      return;
-    } else {
-      console.log("in play music");
-      sound.play();
-      setIsPlaying(true);
-    }
-  };
-
-  const stopMusic = () => {
-    if (isPlaying) {
-      console.log("in stop music");
-      sound.pause();
-      setIsPlaying(false);
-    } else {
-      return;
-    }
-  };
-
   return (
-    <Wrapper>
-      {renderCard()}
-      <div>
-        <button onClick={playMusic}>play</button>
-        <button onClick={stopMusic}>stop</button>
-      </div>
-    </Wrapper>
+    <ScreenWrapper>
+      <Wrapper>
+        <Inner>
+          <JukeboxHead>
+            <JukeboxHeadTop>11</JukeboxHeadTop>
+          </JukeboxHead>
+          <JukeboxBody>
+            <Columns></Columns>
+            <ButtonWrapper>
+              <PadWrapper />
+            </ButtonWrapper>
+            <Columns></Columns>
+          </JukeboxBody>
+        </Inner>
+      </Wrapper>
+    </ScreenWrapper>
   );
 }
