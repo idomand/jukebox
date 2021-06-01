@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-// import { useMedia } from "react-use";
-import { Card } from "./common/Cards";
-import { arrayOfAudioClips } from "../audioClips";
-import { Howl /* , Howler */ } from "howler";
+import { arrayOfSounds } from "../audioClips";
+import { Howl } from "howler";
 
+const Pad = styled.button`
+  border: solid 1px;
+  cursor: pointer;
+  outline: none;
+  background-color: ${(props) => (props.isPicked ? "yellow" : "white")};
+  &:hover {
+    background-color: lightblue;
+  }
+`;
 const Wrapper = styled.section`
   background-color: lightgrey;
   display: grid;
@@ -14,54 +21,64 @@ const Wrapper = styled.section`
 `;
 
 const ButtonDiv = styled.div`
-  border: solid red;
+  border: solid;
 `;
 export default function PadWrapper() {
-  const [audioPicked, setAudioPicked] = useState(undefined);
   const [audioNamePicked, setAudioNamePicked] = useState(undefined);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [playlistArray, setPlaylistArray] = useState([]);
+  const [trackNumber, setTrackNumber] = useState(0);
 
-  const changeClip = (clip) => {
-    setAudioPicked(clip.src);
-    setAudioNamePicked(clip.name);
+  console.log(`arrayOfSounds`, arrayOfSounds);
+
+  console.log(`playlistArray`, playlistArray);
+
+  const playMusicFromPlaylist = () => {
+    if (playlistArray.length !== 0) {
+      playlistArray.forEach((element) => {});
+    }
+  };
+
+  const handlePadClick = (clip) => {
+    console.log(`clip`, clip);
+    if (playlistArray.includes(clip.name)) {
+      console.log("needToRemove");
+      setPlaylistArray(
+        playlistArray.filter((element) => element !== clip.name)
+      );
+    } else {
+      console.log("needToAdd");
+      setPlaylistArray((playlistArray) => {
+        return [...playlistArray, clip.name];
+      });
+    }
   };
 
   const renderPads = () => {
-    const arrayOfCards = arrayOfAudioClips.map((element) => {
+    const arrayOfPads = arrayOfSounds.map((element) => {
       return (
-        <Card
+        <Pad
           key={element.name}
           onClick={() => {
-            changeClip(element);
+            handlePadClick(element);
           }}
           name={element.name}
           cardPicked={audioNamePicked}
+          isPicked={playlistArray.includes(element.name)}
         >
           <p>{element.name}</p>
-        </Card>
+        </Pad>
       );
     });
-    return arrayOfCards;
-  };
-
-  const sound = new Howl({
-    src: [audioPicked],
-  });
-
-  const stopMusic = () => {
-    sound.stop();
-  };
-
-  const playMusic = () => {
-    sound.play();
+    return arrayOfPads;
   };
 
   return (
     <>
       <Wrapper>{renderPads()}</Wrapper>
       <ButtonDiv>
-        <button onClick={playMusic}>play</button>
-        <button onClick={stopMusic}>stop</button>
+        <div>
+          <button onClick={playMusicFromPlaylist}>play playlist</button>
+        </div>
       </ButtonDiv>
     </>
   );

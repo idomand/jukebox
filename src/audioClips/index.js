@@ -7,26 +7,16 @@ import GrooveB from "./GrooveB_120bpm_Tanggu.mp3";
 import MazePolitics from "./MazePolitics_120_Perc.mp3";
 import pAS3GROOVE1 from "./PAS3GROOVE1.03B.mp3";
 import SilentStar from "./SilentStar_120_Em_OrganSynth.mp3";
+import { Howl /* , Howler */ } from "howler";
 
-// export const arrayOfAudioClips = [
-//   breakBeats,
-//   futureFunk,
-//   BassWarwick,
-//   coutrySlide,
-//   StompySlosh,
-//   GrooveB,
-//   MazePolitics,
-//   pAS3GROOVE1,
-//   SilentStar,
-// ];
-export const arrayOfAudioClips = [
-  { name: "breakBeats", src: breakBeats },
-  { name: "futureFunk", src: futureFunk },
-  { name: "BassWarwick", src: BassWarwick },
-  { name: "coutrySlide", src: coutrySlide },
-  { name: "StompySlosh", src: StompySlosh },
-  { name: "GrooveB", src: GrooveB },
-  { name: "MazePolitics", src: MazePolitics },
-  { name: "pAS3GROOVE1", src: pAS3GROOVE1 },
-  { name: "SilentStar", src: SilentStar },
+export const arrayOfSounds = [
+  { name: "breakBeats", sound: new Howl({ src: breakBeats }) },
+  { name: "futureFunk", sound: new Howl({ src: futureFunk }) },
+  { name: "BassWarwick", sound: new Howl({ src: BassWarwick }) },
+  { name: "countrySlide", sound: new Howl({ src: coutrySlide }) },
+  { name: "StompSlosh", sound: new Howl({ src: StompySlosh }) },
+  { name: "Groovy", sound: new Howl({ src: GrooveB }) },
+  { name: "MazePolitics", sound: new Howl({ src: MazePolitics }) },
+  { name: "GROOVE", sound: new Howl({ src: pAS3GROOVE1 }) },
+  { name: "SilentStar", sound: new Howl({ src: SilentStar }) },
 ];

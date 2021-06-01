@@ -14,7 +14,7 @@ const ScreenWrapper = styled.section`
 
 const Wrapper = styled.div`
   background-color: lightgrey;
-  border: solid blue;
+  border: solid;
   grid-column: 2/3;
   @media (max-width: 650px) {
     grid-column: 1/2;
@@ -33,7 +33,7 @@ const JukeboxHead = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  border: solid red;
+  border: solid;
   height: 200px;
   width: 400px;
   margin-top: 20px;
@@ -49,7 +49,7 @@ const JukeboxHeadTop = styled.div`
   background-color: gold;
   border-top-left-radius: 150px;
   border-top-right-radius: 150px;
-  border: 3px solid black;
+  border: 3px solid;
   border-bottom: 0;
   display: flex;
   justify-content: center;
@@ -60,7 +60,7 @@ const JukeboxHeadTop = styled.div`
 const JukeboxBody = styled.div`
   align-self: center;
   justify-self: center;
-  border: solid blue;
+  border: solid;
   height: 500px;
   width: 400px;
   display: grid;
@@ -74,7 +74,7 @@ const Columns = styled.div`
 `;
 const ButtonWrapper = styled.div`
   background-color: lightskyblue;
-  border: solid black;
+  border: solid;
   display: flex;
   flex-direction: column;
   align-items: center;
