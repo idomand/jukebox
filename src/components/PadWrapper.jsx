@@ -42,12 +42,12 @@ export const Button = styled.button`
   }
 `;
 
-const PlayAllButton = styled(Button)`
-  background-color: green;
-`;
-
 const StopButton = styled(Button)`
   background-color: red;
+`;
+
+const PlayButton = styled(Button)`
+  background-color: lightgreen;
 `;
 
 const Pad = styled.button`
@@ -125,10 +125,6 @@ export default function PadWrapper({ changeSongName }) {
         return [...playlistArray, clip];
       });
     }
-    /*     if (playlistArray.length !== 0) {
-      playMusicFromPlaylist();
-    }
- */
   };
 
   const smallStopMusic = () => {
@@ -145,16 +141,17 @@ export default function PadWrapper({ changeSongName }) {
     setPlaylistArray([]);
   };
 
-  const playAll = () => {
+  const playMusic = () => {
     console.log("play all");
     playMusicFromPlaylist();
   };
+
   return (
     <>
       <Wrapper>{renderPads()}</Wrapper>
       <ButtonDiv>
         <div>
-          <PlayAllButton onClick={playAll}>Play All</PlayAllButton>
+          <PlayButton onClick={playMusic}>Play </PlayButton>
         </div>
         <div>
           <StopButton onClick={bigStopMusic}>Stop</StopButton>

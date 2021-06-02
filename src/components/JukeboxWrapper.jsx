@@ -13,10 +13,10 @@ const ScreenWrapper = styled.section`
 
 const Wrapper = styled.div`
   background-color: lightgrey;
-  border: solid;
   grid-column: 2/3;
   @media (max-width: 650px) {
     grid-column: 1/2;
+    height: 100%;
   }
 `;
 
@@ -26,6 +26,9 @@ const Inner = styled.div`
   align-items: center;
   height: inherit;
   flex-direction: column;
+  @media (max-width: 650px) {
+    justify-content: flex-start;
+  }
 `;
 const JukeboxHead = styled.div`
   display: flex;
@@ -38,7 +41,11 @@ const JukeboxHead = styled.div`
   margin-top: 20px;
   border-top-left-radius: 250px;
   border-top-right-radius: 250px;
-  background-image: linear-gradient(darkgreen, lightblue); ;
+  background-image: linear-gradient(darkgreen, lightblue);
+
+  @media (max-width: 650px) {
+    margin-top: 0;
+  }
 `;
 
 const JukeboxHeadTop = styled.div`
@@ -58,7 +65,7 @@ const JukeboxBody = styled.div`
   align-self: center;
   justify-self: center;
   border: solid;
-  height: 500px;
+  height: 450px;
   width: 400px;
   display: grid;
   grid-template-columns: 47px 1fr 47px;
@@ -79,22 +86,26 @@ const ButtonWrapper = styled.div`
 const ColoredScreen = styled.div`
   color: white;
   background-color: black;
-  border: solid lightblue;
-  margin-bottom: 10px;
-  padding: 25px;
-  border-radius: 5px;
+  border: solid black;
+  border-bottom: none;
+  padding: 50px;
+  padding-bottom: 10px;
   font-weight: bolder;
   font-size: 20px;
   background-image: ${(props) =>
-    `linear-gradient(to right, ${props.colorOne},${props.colorTwo},${props.colorThree})`};
-  width: 150px;
+    `linear-gradient(to right, ${props.colorOne},${props.colorTwo})`};
+  transform: 0.5s;
+  width: 135px;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
+  border-top-left-radius: 150px;
+  border-top-right-radius: 150px;
 `;
-
-const SongNameWrapper = styled.div`
+const ScreenText = styled.p`
+  margin: 0;
   color: white;
-  background-color: black;
   padding: 1px;
   text-decoration: underline;
 `;
@@ -103,7 +114,6 @@ export default function JukeboxWrapper() {
   const [song, setSong] = useState("Loop Machine");
   const [randomColor1, setRandomColor1] = useState("blue ");
   const [randomColor2, setRandomColor2] = useState("yellow");
-  const [randomColor3, setRandomColor3] = useState(" red");
 
   const changeSongName = (value) => {
     setSong(value);
@@ -116,9 +126,6 @@ export default function JukeboxWrapper() {
     let randomColorNumber2 = Math.floor(Math.random() * 16777215).toString(16);
     let randomColor2 = `#${randomColorNumber2}`;
     setRandomColor2(randomColor2);
-    let randomColorNumber3 = Math.floor(Math.random() * 16777215).toString(16);
-    let randomColor3 = `#${randomColorNumber3}`;
-    setRandomColor3(randomColor3);
   }, [song]);
 
   return (
@@ -127,12 +134,9 @@ export default function JukeboxWrapper() {
         <Inner>
           <JukeboxHead>
             <JukeboxHeadTop>
-              <ColoredScreen
-                colorOne={randomColor1}
-                colorTwo={randomColor2}
-                colorThree={randomColor3}
-              >
-                <SongNameWrapper>{song}</SongNameWrapper>
+              <ColoredScreen colorOne={randomColor1} colorTwo={randomColor2}>
+                <ScreenText>{song}</ScreenText>
+                <ScreenText>Jukebox</ScreenText>
               </ColoredScreen>
             </JukeboxHeadTop>
           </JukeboxHead>
