@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { arrayOfSounds } from "../audioClips";
 
@@ -48,7 +48,6 @@ const PlayAllButton = styled(Button)`
 const StopButton = styled(Button)`
   background-color: red;
 `;
-
 const Pad = styled.button`
   border: solid 1px;
   cursor: pointer;
@@ -64,9 +63,62 @@ const Pad = styled.button`
 
 export default function PadWrapper({ changeSongName }) {
   const [playlistArray, setPlaylistArray] = useState([]);
-  const [cardPlayingNow, setCardPlayingNow] = useState("");
-  // const [isMusicPlaying, setIsMusicPlaying] = useState(false);
-  console.log("playlistArray :>> ", playlistArray);
+  const [cardPlayingNow, setCardPlayingNow] = useState(undefined);
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  const [trackNumber, setTrackNumber] = useState(0);
+  console.log(`playlistArray`, playlistArray);
+
+  const playMusicFromPlaylist = () => {
+    console.log("this is BEFORE THE START");
+    console.log(`trackNumber`, trackNumber);
+    if (playlistArray.length > 0) {
+      console.log("this is a start");
+      setIsMusicPlaying(true);
+
+      setCardPlayingNow(playlistArray[trackNumber].name);
+      playlistArray[trackNumber].sound.play();
+      playlistArray[trackNumber].sound.on("end", () => {
+        setTrackNumber((trackNumber) => trackNumber + 1);
+        stopMusic();
+        playMusicFromPlaylist();
+      });
+    } else {
+      console.log("no more items to play");
+    }
+  };
+
+  useEffect(() => {
+    if (isMusicPlaying && playlistArray.length > 0) {
+      return;
+    } else {
+      playMusicFromPlaylist();
+    }
+  }, [playlistArray]);
+
+  /*   const playMusicFromPlaylist = () => {
+    if (counter < playlistArray.length) {
+      console.log(`counter`, counter);
+      console.log(`playlistArray.length`, playlistArray.length);
+      console.log(`playlistArray[counter]`, playlistArray[counter]);
+      setCardPlayingNow(playlistArray[counter].name);
+      playlistArray[counter].sound.play();
+      playlistArray[counter].sound.on("end", () => {
+        counter++;
+        stopMusic();
+        playMusicFromPlaylist();
+      });
+    } else {
+      console.log("this is the restart of the loop");
+      counter = 0;
+      console.log(`counter`, counter);
+      console.log(`playlistArray.length`, playlistArray.length);
+      console.log(`playlistArray[counter]`, playlistArray[counter]);
+      stopMusic();
+      playMusicFromPlaylist();
+    }
+  };
+ */
+
   const renderPads = () => {
     const arrayOfPads = arrayOfSounds.map((element) => {
       return (
@@ -86,34 +138,6 @@ export default function PadWrapper({ changeSongName }) {
     return arrayOfPads;
   };
 
-  let counter = 0;
-  console.log(`cardPlayingNow`, cardPlayingNow);
-
-  const playMusicFromPlaylist = () => {
-    if (counter < playlistArray.length) {
-      console.log(`counter`, counter);
-      console.log(`playlistArray.length`, playlistArray.length);
-      console.log(`playlistArray[counter]`, playlistArray[counter]);
-      setCardPlayingNow(playlistArray[counter].name);
-      changeSongName(playlistArray[counter].name);
-
-      playlistArray[counter].sound.play();
-      playlistArray[counter].sound.on("end", () => {
-        counter++;
-        smallStopMusic();
-        playMusicFromPlaylist();
-      });
-    } else {
-      console.log("this is the restart of the loop");
-      counter = 0;
-      console.log(`counter`, counter);
-      console.log(`playlistArray.length`, playlistArray.length);
-      console.log(`playlistArray[counter]`, playlistArray[counter]);
-      smallStopMusic();
-      playMusicFromPlaylist();
-    }
-  };
-
   const handlePadClick = (clip) => {
     if (playlistArray.some((element) => element.name === clip.name)) {
       setPlaylistArray(
@@ -124,36 +148,22 @@ export default function PadWrapper({ changeSongName }) {
         return [...playlistArray, clip];
       });
     }
-    /*     if (playlistArray.length !== 0) {
-      playMusicFromPlaylist();
-    }
- */
   };
 
-  const smallStopMusic = () => {
-    arrayOfSounds.forEach((element) => {
-      element.sound.stop();
-    });
-  };
-  const bigStopMusic = () => {
+  const stopMusic = () => {
+    console.log("%c stop music! ", "background: #222; color: #bada55");
     arrayOfSounds.forEach((element) => {
       element.sound.stop();
     });
     changeSongName("Loop Machine");
-
     setPlaylistArray([]);
+    setIsMusicPlaying(false);
   };
 
-  const stopMusic = () => {
-    arrayOfSounds.forEach((element) => {
-      element.sound.stop();
-    });
-    setPlaylistArray([]);
-  };
   const playAll = () => {
     console.log("play all");
-    playMusicFromPlaylist();
   };
+
   return (
     <>
       <Wrapper>{renderPads()}</Wrapper>
@@ -162,7 +172,7 @@ export default function PadWrapper({ changeSongName }) {
           <PlayAllButton onClick={playAll}>Play All</PlayAllButton>
         </div>
         <div>
-          <StopButton onClick={bigStopMusic}>Stop</StopButton>
+          <StopButton onClick={stopMusic}>Stop</StopButton>
         </div>
       </ButtonDiv>
     </>
