@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { arrayOfSounds } from "../audioClips";
 
 const Wrapper = styled.section`
-  background-color: lightgrey;
+  /* background-color: lightgrey; */
   display: grid;
   grid-template-columns: repeat(3, minmax(75px, 1fr));
   grid-gap: 3px;
@@ -37,7 +37,6 @@ export const Button = styled.button`
   &:hover,
   &:focus,
   &:active {
-    -webkit-transform: scale(1.1);
     transform: scale(1.1);
   }
 `;
@@ -54,13 +53,19 @@ const Pad = styled.button`
   border: solid 1px;
   cursor: pointer;
   outline: none;
+  border-radius: 3px;
+
   transition: fill 0.25s;
-  background-color: ${(props) => (props.isPicked ? "yellow" : "white")};
+  background-color: ${(props) => (props.isPicked ? "#E9EB80" : "#EBA26F")};
   background-color: ${(props) =>
     props.cardPlayingNow && props.isPicked ? "red" : "null"};
   &:hover {
     background-color: lightblue;
   }
+`;
+const PadText = styled.p`
+  margin: 5px 0 5px 0;
+  outline: none;
 `;
 
 export default function PadWrapper({ changeSongName }) {
@@ -79,7 +84,7 @@ export default function PadWrapper({ changeSongName }) {
           cardPlayingNow={cardPlayingNow === element.name}
           isPicked={playlistArray.some((pad) => pad.name === element.name)}
         >
-          <p>{element.name}</p>
+          <PadText>{element.name}</PadText>
         </Pad>
       );
     });

@@ -35,13 +35,18 @@ const JukeboxHead = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  border: solid;
+  border: solid #bc13fe;
+  border-bottom: none;
   height: 200px;
   width: 375px;
   margin-top: 20px;
   border-top-left-radius: 250px;
   border-top-right-radius: 250px;
-  background-image: linear-gradient(darkgreen, lightblue);
+  /* background-image: linear-gradient(darkgreen, lightblue); */
+  background-image: linear-gradient(#00ff87, #60efff);
+
+  box-shadow: 0 0 0.2rem #fff, 0 0 0.2rem #fff, 0 0 2rem #bc13fe,
+    0 0 0.5rem #bc13fe, 0 0 1rem #bc13fe, inset 0 0 0.7rem #bc13fe;
 
   @media (max-width: 650px) {
     margin-top: 0;
@@ -58,9 +63,9 @@ const JukeboxHeadTop = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  background-image: linear-gradient(red, yellow); ;
+  background-image: linear-gradient(#d62b31, lightyellow);
 `;
-
+//
 const JukeboxBody = styled.div`
   align-self: center;
   justify-self: center;
@@ -72,10 +77,12 @@ const JukeboxBody = styled.div`
 `;
 
 const Columns = styled.div`
-  background-image: linear-gradient(#00ff87, #60efff); ;
+  background-image: linear-gradient(#00ff87, #60efff);
+  box-shadow: 0 0 0.2rem #fff, 0 0 0.2rem #fff, 0 0 2rem #bc13fe,
+    0 0 0.5rem #bc13fe, 0 0 1rem #bc13fe, inset 0 0 0.7rem #bc13fe;
 `;
 const ButtonWrapper = styled.div`
-  background-color: lightskyblue;
+  background-image: linear-gradient(#2a0a01, #5a2400);
   border-right: solid;
   border-left: solid;
   display: flex;
