@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import PadWrapper from "./PadWrapper";
+
+/**
+ * *==========================
+ * !
+ * *==========================
+ */
+
 const ScreenWrapper = styled.section`
   height: 100vh;
   width: 100vw;
@@ -42,7 +49,6 @@ const JukeboxHead = styled.div`
   margin-top: 20px;
   border-top-left-radius: 250px;
   border-top-right-radius: 250px;
-  /* background-image: linear-gradient(darkgreen, lightblue); */
   background-image: linear-gradient(#00ff87, #60efff);
 
   box-shadow: 0 0 0.2rem #fff, 0 0 0.2rem #fff, 0 0 2rem #bc13fe,
@@ -122,17 +128,20 @@ export default function JukeboxWrapper() {
   const [randomColor1, setRandomColor1] = useState("blue ");
   const [randomColor2, setRandomColor2] = useState("yellow");
 
-  const changeSongName = (value) => {
+  //! === use effect is used to generate new colors any time the song name in the screen is changing  ===
+  const changeNameInScreen = (value) => {
     setSong(value);
   };
 
+  const getRandomColor = () => {
+    let randomColorNumber = Math.floor(Math.random() * 16777215).toString(16);
+    let randomColor = `#${randomColorNumber}`;
+    return randomColor;
+  };
+
   useEffect(() => {
-    let randomColorNumber1 = Math.floor(Math.random() * 16777215).toString(16);
-    let randomColor1 = `#${randomColorNumber1}`;
-    setRandomColor1(randomColor1);
-    let randomColorNumber2 = Math.floor(Math.random() * 16777215).toString(16);
-    let randomColor2 = `#${randomColorNumber2}`;
-    setRandomColor2(randomColor2);
+    setRandomColor1(getRandomColor());
+    setRandomColor2(getRandomColor());
   }, [song]);
 
   return (
@@ -150,7 +159,7 @@ export default function JukeboxWrapper() {
           <JukeboxBody>
             <Columns></Columns>
             <ButtonWrapper>
-              <PadWrapper changeSongName={changeSongName} />
+              <PadWrapper changeNameInScreen={changeNameInScreen} />
             </ButtonWrapper>
             <Columns></Columns>
           </JukeboxBody>

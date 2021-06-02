@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { arrayOfSounds } from "../audioClips";
 
 const Wrapper = styled.section`
-  /* background-color: lightgrey; */
   display: grid;
   grid-template-columns: repeat(3, minmax(75px, 1fr));
   grid-gap: 3px;
@@ -17,7 +16,7 @@ const ButtonDiv = styled.div`
   align-items: center;
   margin-top: 15px;
 `;
-export const Button = styled.button`
+const Button = styled.button`
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
@@ -46,7 +45,7 @@ const StopButton = styled(Button)`
 `;
 
 const PlayButton = styled(Button)`
-  background-color: lightgreen;
+  background-color: green;
 `;
 
 const Pad = styled.button`
@@ -54,7 +53,6 @@ const Pad = styled.button`
   cursor: pointer;
   outline: none;
   border-radius: 3px;
-
   transition: fill 0.25s;
   background-color: ${(props) => (props.isPicked ? "#E9EB80" : "#EBA26F")};
   background-color: ${(props) =>
@@ -68,10 +66,12 @@ const PadText = styled.p`
   outline: none;
 `;
 
-export default function PadWrapper({ changeSongName }) {
+export default function PadWrapper({ changeNameInScreen }) {
   const [playlistArray, setPlaylistArray] = useState([]);
   const [cardPlayingNow, setCardPlayingNow] = useState("");
-  // const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  let counter = 0;
+
+  //! === renderPads return 9 pads (buttons) with the sound clips  ===
   const renderPads = () => {
     const arrayOfPads = arrayOfSounds.map((element) => {
       return (
@@ -80,7 +80,6 @@ export default function PadWrapper({ changeSongName }) {
           onClick={() => {
             handlePadClick(element);
           }}
-          name={element.name}
           cardPlayingNow={cardPlayingNow === element.name}
           isPicked={playlistArray.some((pad) => pad.name === element.name)}
         >
@@ -91,13 +90,12 @@ export default function PadWrapper({ changeSongName }) {
     return arrayOfPads;
   };
 
-  let counter = 0;
-
+  /*   //! === playMusicFromPlaylist is in responsible for changing the style of the playing clip and playing the clips one after each clip and reactivate the loop ===
+   */
   const playMusicFromPlaylist = () => {
     if (counter < playlistArray.length) {
       setCardPlayingNow(playlistArray[counter].name);
-      changeSongName(playlistArray[counter].name);
-
+      changeNameInScreen(playlistArray[counter].name);
       playlistArray[counter].sound.play();
       playlistArray[counter].sound.on("end", () => {
         counter++;
@@ -110,7 +108,7 @@ export default function PadWrapper({ changeSongName }) {
       playMusicFromPlaylist();
     }
   };
-
+  //! === handlePadClick add or remove soundClip into the playlist ===
   const handlePadClick = (clip) => {
     if (playlistArray.some((element) => element.name === clip.name)) {
       setPlaylistArray(
@@ -128,11 +126,11 @@ export default function PadWrapper({ changeSongName }) {
       element.sound.stop();
     });
   };
-  const bigStopMusic = () => {
+  const stopMusic = () => {
     arrayOfSounds.forEach((element) => {
       element.sound.stop();
     });
-    changeSongName("Loop Machine");
+    changeNameInScreen("Loop Machine");
     setCardPlayingNow("");
     setPlaylistArray([]);
   };
@@ -146,10 +144,10 @@ export default function PadWrapper({ changeSongName }) {
       <Wrapper>{renderPads()}</Wrapper>
       <ButtonDiv>
         <div>
-          <PlayButton onClick={playMusic}>Play </PlayButton>
+          <PlayButton onClick={playMusic}>Play</PlayButton>
         </div>
         <div>
-          <StopButton onClick={bigStopMusic}>Stop</StopButton>
+          <StopButton onClick={stopMusic}>Stop</StopButton>
         </div>
       </ButtonDiv>
     </>
