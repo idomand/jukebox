@@ -2,7 +2,7 @@
 
 ## Description
 
-Working Jukebox implemented with React and Howler.js for the audio handling.
+Working Jukebox implemented with React, styled-Components for CSS styling and Howler.js for the audio handling.
 
 The Jukebox will run in an infinite accelerating loop until it is stopped.
 
