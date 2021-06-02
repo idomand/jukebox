@@ -8,6 +8,7 @@ const Wrapper = styled.section`
   grid-template-columns: repeat(3, minmax(75px, 1fr));
   grid-gap: 3px;
   padding: 5px;
+  margin-top: 15px;
 `;
 
 const ButtonDiv = styled.div`
@@ -144,12 +145,6 @@ export default function PadWrapper({ changeSongName }) {
     setPlaylistArray([]);
   };
 
-  const stopMusic = () => {
-    arrayOfSounds.forEach((element) => {
-      element.sound.stop();
-    });
-    setPlaylistArray([]);
-  };
   const playAll = () => {
     console.log("play all");
     playMusicFromPlaylist();
