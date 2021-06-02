@@ -67,7 +67,6 @@ export default function PadWrapper({ changeSongName }) {
   const [playlistArray, setPlaylistArray] = useState([]);
   const [cardPlayingNow, setCardPlayingNow] = useState("");
   // const [isMusicPlaying, setIsMusicPlaying] = useState(false);
-  console.log("playlistArray :>> ", playlistArray);
   const renderPads = () => {
     const arrayOfPads = arrayOfSounds.map((element) => {
       return (
@@ -88,13 +87,9 @@ export default function PadWrapper({ changeSongName }) {
   };
 
   let counter = 0;
-  console.log(`cardPlayingNow`, cardPlayingNow);
 
   const playMusicFromPlaylist = () => {
     if (counter < playlistArray.length) {
-      console.log(`counter`, counter);
-      console.log(`playlistArray.length`, playlistArray.length);
-      console.log(`playlistArray[counter]`, playlistArray[counter]);
       setCardPlayingNow(playlistArray[counter].name);
       changeSongName(playlistArray[counter].name);
 
@@ -105,11 +100,7 @@ export default function PadWrapper({ changeSongName }) {
         playMusicFromPlaylist();
       });
     } else {
-      console.log("this is the restart of the loop");
       counter = 0;
-      console.log(`counter`, counter);
-      console.log(`playlistArray.length`, playlistArray.length);
-      console.log(`playlistArray[counter]`, playlistArray[counter]);
       smallStopMusic();
       playMusicFromPlaylist();
     }
@@ -137,12 +128,11 @@ export default function PadWrapper({ changeSongName }) {
       element.sound.stop();
     });
     changeSongName("Loop Machine");
-
+    setCardPlayingNow("");
     setPlaylistArray([]);
   };
 
   const playMusic = () => {
-    console.log("play all");
     playMusicFromPlaylist();
   };
 

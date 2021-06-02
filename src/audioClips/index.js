@@ -10,13 +10,13 @@ import SilentStar from "./SilentStar_120_Em_OrganSynth.mp3";
 import { Howl /* , Howler */ } from "howler";
 
 export const arrayOfSounds = [
-  { name: "breakBeats", sound: new Howl({ src: breakBeats, rate: 1.5 }) },
-  { name: "futureFunk", sound: new Howl({ src: futureFunk, rate: 1.5 }) },
-  { name: "BassWarwick", sound: new Howl({ src: BassWarwick, rate: 1.5 }) },
-  { name: "countrySlide", sound: new Howl({ src: coutrySlide, rate: 1.5 }) },
-  { name: "StompSlosh", sound: new Howl({ src: StompySlosh, rate: 1.5 }) },
-  { name: "Groovy", sound: new Howl({ src: GrooveB, rate: 1.5 }) },
-  { name: "MazePolitics", sound: new Howl({ src: MazePolitics, rate: 1.5 }) },
-  { name: "GROOVE", sound: new Howl({ src: pAS3GROOVE1, rate: 1.5 }) },
-  { name: "SilentStar", sound: new Howl({ src: SilentStar, rate: 1.5 }) },
+  { name: "Break Beats", sound: new Howl({ src: breakBeats, rate: 1.5 }) },
+  { name: "Future Funk", sound: new Howl({ src: futureFunk, rate: 1.5 }) },
+  { name: "Bass Jam", sound: new Howl({ src: BassWarwick, rate: 1.5 }) },
+  { name: "Country Slide", sound: new Howl({ src: coutrySlide, rate: 1.5 }) },
+  { name: "Stomp Slosh", sound: new Howl({ src: StompySlosh, rate: 1.5 }) },
+  { name: "Groovy One", sound: new Howl({ src: GrooveB, rate: 1.5 }) },
+  { name: "Maze Politics", sound: new Howl({ src: MazePolitics, rate: 1.5 }) },
+  { name: "Groovy Two", sound: new Howl({ src: pAS3GROOVE1, rate: 1.5 }) },
+  { name: "Silent Star", sound: new Howl({ src: SilentStar, rate: 1.5 }) },
 ];

@@ -37,7 +37,7 @@ const JukeboxHead = styled.div`
   justify-content: flex-end;
   border: solid;
   height: 200px;
-  width: 400px;
+  width: 375px;
   margin-top: 20px;
   border-top-left-radius: 250px;
   border-top-right-radius: 250px;
@@ -66,9 +66,9 @@ const JukeboxBody = styled.div`
   justify-self: center;
   border: solid;
   height: 450px;
-  width: 400px;
+  width: 375px;
   display: grid;
-  grid-template-columns: 47px 1fr 47px;
+  grid-template-columns: 35px 1fr 35px;
 `;
 
 const Columns = styled.div`
