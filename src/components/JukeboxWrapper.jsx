@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-// import { useMedia } from "react-use";
 import PadWrapper from "./PadWrapper";
 const ScreenWrapper = styled.section`
   height: 100vh;
@@ -39,21 +38,19 @@ const JukeboxHead = styled.div`
   margin-top: 20px;
   border-top-left-radius: 250px;
   border-top-right-radius: 250px;
-  /* background-color: lightgreen; */
   background-image: linear-gradient(darkgreen, lightblue); ;
 `;
 
 const JukeboxHeadTop = styled.div`
   width: 300px;
   height: 150px;
-  background-color: gold;
   border-top-left-radius: 150px;
   border-top-right-radius: 150px;
   border: 3px solid;
   border-bottom: 0;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   background-image: linear-gradient(red, yellow); ;
 `;
 
@@ -78,18 +75,71 @@ const ButtonWrapper = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+
+const ColoredScreen = styled.div`
+  color: white;
+  background-color: black;
+  border: solid lightblue;
+  margin-bottom: 10px;
+  padding: 25px;
+  border-radius: 5px;
+  font-weight: bolder;
+  font-size: 20px;
+  background-image: ${(props) =>
+    `linear-gradient(to right, ${props.colorOne},${props.colorTwo},${props.colorThree})`};
+  width: 150px;
+  display: flex;
+  justify-content: center;
+`;
+
+const SongNameWrapper = styled.div`
+  color: white;
+  background-color: black;
+  padding: 1px;
+  text-decoration: underline;
+`;
+
 export default function JukeboxWrapper() {
+  const [song, setSong] = useState("Loop Machine");
+  const [randomColor1, setRandomColor1] = useState("blue ");
+  const [randomColor2, setRandomColor2] = useState("yellow");
+  const [randomColor3, setRandomColor3] = useState(" red");
+
+  const changeSongName = (value) => {
+    setSong(value);
+  };
+
+  useEffect(() => {
+    let randomColorNumber1 = Math.floor(Math.random() * 16777215).toString(16);
+    let randomColor1 = `#${randomColorNumber1}`;
+    setRandomColor1(randomColor1);
+    let randomColorNumber2 = Math.floor(Math.random() * 16777215).toString(16);
+    let randomColor2 = `#${randomColorNumber2}`;
+    setRandomColor2(randomColor2);
+    let randomColorNumber3 = Math.floor(Math.random() * 16777215).toString(16);
+    let randomColor3 = `#${randomColorNumber3}`;
+    setRandomColor3(randomColor3);
+  }, [song]);
+
   return (
     <ScreenWrapper>
       <Wrapper>
         <Inner>
           <JukeboxHead>
-            <JukeboxHeadTop>11</JukeboxHeadTop>
+            <JukeboxHeadTop>
+              <ColoredScreen
+                colorOne={randomColor1}
+                colorTwo={randomColor2}
+                colorThree={randomColor3}
+              >
+                <SongNameWrapper>{song}</SongNameWrapper>
+              </ColoredScreen>
+            </JukeboxHeadTop>
           </JukeboxHead>
           <JukeboxBody>
             <Columns></Columns>
             <ButtonWrapper>
-              <PadWrapper />
+              <PadWrapper changeSongName={changeSongName} />
             </ButtonWrapper>
             <Columns></Columns>
           </JukeboxBody>
